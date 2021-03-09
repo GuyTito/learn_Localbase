@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Localbase testing</title>
+</head>
+
+<body>
+    <h1>Localbase testing</h1>
+    <button id="add">add</button>
+    <button id="update">update</button>
+    <button id="delete">delete</button>
+    <button id="getAll">getAll</button>
+    <button id="getOne">getOne</button>
+
+
+    <script src="https://unpkg.com/localbase/dist/localbase.min.js"></script>
+    <script>
+        // Database > Colllection(store/table) > Document(row)
+        let db = new Localbase('db')
+
+        let add = document.getElementById('add')
+        add.addEventListener('click', addIt)
+
+        function addIt() {
+            console.log('addIt...')
+
+            db.collection('users').add({
+                id: 3,
+                name: 'Edem',
+                age: 20,
+                note: [{ name: 'banku', price: 8 }, { name: 'tolo', price: 5 }]
+            })
+        }
+
+
+        let update = document.getElementById('update')
+        update.addEventListener('click', updateIt)
+
+        function updateIt() {
+            console.log('updateIt...')
+
+            // update part of the document
+            // you can update using any property like the 'name', 'age', etc not only the 'id'
+            db.collection('users').doc({ id: 1 }).update({
+                note: [{ name: 'coco', price: 4 }, { name: 'pie', price: 2 }]
+                // note: [{ name: 'coco', price: 4 }, {price: 2 }]
+
+            })
+
+            //overwrite all the document, use the 'set' keyword instead of 'update'
+            db.collection('users').doc({ id: 1 }).update({
+                id: 2,
+                name: 'Tito',
+                age: 23,
+                note: [{ name: 'cocoa', price: 3 }, { name: 'pie', price: 4 }]
+            })
+        }
+
+
+        let del = document.getElementById('delete')
+        del.addEventListener('click', deleteIt)
+
+        function deleteIt() {
+            console.log('deleteIt...')
+
+            db.collection('users').doc({ name: 'Bill' }).delete()
+
+        }
+
+
+        let getAll = document.getElementById('getAll')
+        getAll.addEventListener('click', getAllIt)
+
+        function getAllIt() {
+            console.log('getAllIt...')
+
+            // db.collection('users').get().then(users => {
+            //     console.log(users)
+            // })
+
+            //get all with their keys
+            db.collection('users').get({keys: true}).then(users => {
+                console.log(users)
+            })
+        }
+
+
+        let getOne = document.getElementById('getOne')
+        getOne.addEventListener('click', getOneIt)
+
+        function getOneIt() {
+            console.log('getOneIt...')
+
+            // db.collection('users').doc({ id: 3 }).get().then(document => {
+            //     console.log(document)
+            // })
+
+            //get one using name
+            // db.collection('users').doc({ name: 'Tito' }).get().then(document => {
+            //     console.log(document)
+            // })
+            
+            //get one with key
+            db.collection('users').doc({ name: 'Tito' }).get({keys: true}).then(document => {
+                console.log(document)
+            })
+        }
+    </script>
+</body>
+
+</html>
