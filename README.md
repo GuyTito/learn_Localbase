@@ -1,2 +1,2 @@
 # Localbase
- learn Localbase, a library for indexeddb
+ To learn [Localbase](https://github.com/dannyconnell/localbase), a library for indexeddb by Danny Connell
