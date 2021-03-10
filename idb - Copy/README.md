@@ -1,6 +1,4 @@
 # idb
-to learn to use the npm version of the Localbase
-
 
 ## Project setup
 ```
