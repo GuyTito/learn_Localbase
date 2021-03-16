@@ -24,6 +24,7 @@ export default new Vuex.Store({
       });
     },
     async addCat(context, cat) {
+      console.log('$store... ' + JSON.stringify(cat));
       await idb.addCat(cat);
     },
     async editCat(context, cat) {

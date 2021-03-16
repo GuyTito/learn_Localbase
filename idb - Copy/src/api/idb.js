@@ -1,7 +1,7 @@
 import Localbase from "localbase";
 
 let db = new Localbase("catDb");
-db.config.debug = false;
+db.config.debug = true;
 
 export default {
   async getCats() {
@@ -14,6 +14,7 @@ export default {
   },
 
   async addCat(cat) {
+    console.log('adding... ' + JSON.stringify(cat));
     await db.collection("cats").add(cat);
     console.log("added");
   },
